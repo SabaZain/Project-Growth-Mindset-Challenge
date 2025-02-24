@@ -1,7 +1,5 @@
 import streamlit as st
 import pandas as pd
-from docx import Document
-
 
 st.set_page_config(page_title= "Growth Mindset Project⭐")
 st.title("🌷🧠 Growth Mindset Challenge!")
@@ -46,7 +44,7 @@ else:
 
 # File Upload
 st.title("Upload Your File 📘")
-uploaded_file = st.file_uploader("Please upload an Excel, Word, or CSV file", type=["xlsx", "docx", "csv"])
+uploaded_file = st.file_uploader("Please upload an Excel, CSV file", type=["xlsx", "csv"])
 
 if uploaded_file is not None:
     file_type = uploaded_file.type
@@ -57,17 +55,6 @@ if uploaded_file is not None:
         # Read and display Excel file
         df = pd.read_excel(uploaded_file)
         st.write(df)
-
-    
-    # If the file is Word
-    elif file_type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-        st.write("Word file uploaded successfully!")
-         # Read and display PDF file content
-        doc = Document(uploaded_file)
-        text = ""
-        for para in doc.paragraphs:
-            text += para.text + "\n"
-        st.text_area("Word Content", text, height=300)
 
     # If the file is CSV
     elif file_type == "text/csv":
