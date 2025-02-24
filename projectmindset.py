@@ -1,7 +1,5 @@
 import streamlit as st
 import pandas as pd
-from io import BytesIO
-from PyPDF2 import PdfReader
 from docx import Document
 
 
@@ -48,7 +46,7 @@ else:
 
 # File Upload
 st.title("Upload Your File 📘")
-uploaded_file = st.file_uploader("Please upload an Excel, PDF, Word, or CSV file", type=["xlsx", "pdf", "docx", "csv"])
+uploaded_file = st.file_uploader("Please upload an Excel, Word, or CSV file", type=["xlsx", "docx", "csv"])
 
 if uploaded_file is not None:
     file_type = uploaded_file.type
@@ -60,17 +58,7 @@ if uploaded_file is not None:
         df = pd.read_excel(uploaded_file)
         st.write(df)
 
-    # If the file is PDF
-    elif file_type == "application/pdf":
-        st.write("PDF file uploaded successfully!")
-        # Read and display PDF file content
-        pdf_file = BytesIO(uploaded_file.read())
-        reader = PdfReader(pdf_file)
-        text = ""
-        for page in reader.pages:
-            text += page.extract_text()
-        st.text_area("PDF Content", text, height=300)
-
+    
     # If the file is Word
     elif file_type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
         st.write("Word file uploaded successfully!")
