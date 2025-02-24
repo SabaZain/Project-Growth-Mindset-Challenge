@@ -64,7 +64,8 @@ if uploaded_file is not None:
     elif file_type == "application/pdf":
         st.write("PDF file uploaded successfully!")
         # Read and display PDF file content
-        reader = PdfReader(uploaded_file)
+        pdf_file = BytesIO(uploaded_file.read())
+        reader = PdfReader(pdf_file)
         text = ""
         for page in reader.pages:
             text += page.extract_text()
