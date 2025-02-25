@@ -1,7 +1,5 @@
 import streamlit as st
 import pandas as pd
-from io import BytesIO
-
 
 st.set_page_config(page_title= "Growth Mindset Project⭐")
 st.title("🌷🧠 Growth Mindset Challenge!")
@@ -46,20 +44,13 @@ else:
 
 # File Upload
 st.title("Upload Your File 📘")
-uploaded_file = st.file_uploader("Please upload an Excel, CSV file", type=["xlsx", "csv"])
+uploaded_file = st.file_uploader("Please upload CSV file", type=["csv"])
 
 if uploaded_file is not None:
     file_type = uploaded_file.type
 
-    # If the file is Excel
-    if file_type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
-        st.write("Excel file uploaded successfully!")
-        # Read and display Excel file
-        df = pd.read_excel(uploaded_file)
-        st.write(df)
-
     # If the file is CSV
-    elif file_type == "text/csv":
+    if file_type == "text/csv":
         st.write("CSV file uploaded successfully!")
         # Read and display CSV file
         df = pd.read_csv(uploaded_file)
